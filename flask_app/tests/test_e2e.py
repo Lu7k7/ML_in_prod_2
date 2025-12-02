@@ -4,6 +4,8 @@ import time
 import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from app import create_app
 
 
@@ -64,6 +66,8 @@ class TestE2E(unittest.TestCase):
         driver.find_element(By.NAME, "confirm").send_keys("password")
         driver.find_element(By.TAG_NAME, "button").click()
 
+        WebDriverWait(driver, 5).until(EC.url_contains("/login"))
+
         try:
             self.assertIn("/login", driver.current_url)
         except AssertionError:
@@ -75,6 +79,10 @@ class TestE2E(unittest.TestCase):
         driver.find_element(By.NAME, "username").send_keys("e2e_user")
         driver.find_element(By.NAME, "password").send_keys("password")
         driver.find_element(By.TAG_NAME, "button").click()
+
+        WebDriverWait(driver, 5).until(
+            EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "Your Tasks")
+        )
 
         self.assertEqual(
             driver.current_url.rstrip('/'), self.base_url.rstrip('/')
@@ -93,6 +101,12 @@ class TestE2E(unittest.TestCase):
         driver.execute_script("arguments[0].value = '2025-12-31';", date_input)
 
         driver.find_element(By.TAG_NAME, "button").click()
+
+        WebDriverWait(driver, 5).until(
+            EC.text_to_be_present_in_element(
+                (By.TAG_NAME, "body"), "Selenium Task"
+            )
+        )
 
         self.assertIn("Selenium Task", driver.page_source)
 
