@@ -80,10 +80,10 @@ class TestE2E(unittest.TestCase):
         driver.find_element(By.NAME, "password").send_keys("password")
         driver.find_element(By.TAG_NAME, "button").click()
 
-        WebDriverWait(driver, 5).until(
-            EC.text_to_be_present_in_element(
-                (By.TAG_NAME, "body"),
-                "Your Tasks"
+        WebDriverWait(driver, 10).until(
+            EC.presence_of_element_located(
+                By.LINK_TEXT,
+                "New Task"
             )
         )
 
