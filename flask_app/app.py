@@ -15,7 +15,7 @@ from flask import (
 from dotenv import load_dotenv
 from extensions import db 
 
-load_dotenv() 
+load_dotenv()
 
 
 def _build_postgres_uri() -> str:
