@@ -1,6 +1,6 @@
 # Choix de l'image de base
 FROM python:3.13-slim-bookworm
-ENV PYTHONUNBUFFERED 1
+ENV PYTHONUNBUFFERED=1
 
 # Définit le répertoire de travail dans le conteneur.
 WORKDIR /app
