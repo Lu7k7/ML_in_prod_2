@@ -81,7 +81,10 @@ class TestE2E(unittest.TestCase):
         driver.find_element(By.TAG_NAME, "button").click()
 
         WebDriverWait(driver, 5).until(
-            EC.text_to_be_present_in_element((By.TAG_NAME, "body"), "Your Tasks")
+            EC.text_to_be_present_in_element(
+                (By.TAG_NAME, "body"),
+                "Your Tasks"
+            )
         )
 
         self.assertEqual(
