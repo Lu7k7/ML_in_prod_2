@@ -50,6 +50,7 @@ def create_app():
     register_routes(app)
     return app
 
+
 def login_required(view):
     @wraps(view)
     def wrapped_view(**kwargs):
