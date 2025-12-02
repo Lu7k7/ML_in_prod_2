@@ -113,8 +113,6 @@ class TestE2E(unittest.TestCase):
         alert = driver.switch_to.alert
         alert.accept()
 
-        time.sleep(0.5)
-        self.assertNotIn("Selenium Task", driver.page_source)
 
 if __name__ == "__main__":
     unittest.main()

@@ -41,4 +41,3 @@ class Task(db.Model):
         if self.is_completed or self.due_date is None:
             return False
         return self.due_date < date.today()
-
