@@ -5,7 +5,6 @@ from extensions import db
 from models import User, Task
 
 
-
 class TestIntegration(unittest.TestCase):
     def setUp(self):
         # Configuration de l'environnement de test
@@ -29,6 +28,7 @@ class TestIntegration(unittest.TestCase):
         # Nettoyage de la variable d'environnement
         if "DATABASE_URL" in os.environ:
             del os.environ["DATABASE_URL"]
+
     def test_register_and_login_flow(self):
         # --- Étape 1 : Inscription (Register) ---
         response = self.client.post("/register", data={
@@ -78,6 +78,7 @@ class TestIntegration(unittest.TestCase):
         task = Task.query.filter_by(title="Integration Test Task").first()
         self.assertIsNotNone(task)
         self.assertEqual(task.description, "Testing task creation")
+
     def test_edit_and_toggle_task(self):
         # --- Étape 1 : Setup: User + Login + Task Creation ---
         self.client.post("/register", data={

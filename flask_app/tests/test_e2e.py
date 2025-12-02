@@ -7,7 +7,6 @@ from selenium.webdriver.common.by import By
 from app import create_app
 
 
-
 class TestE2E(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

@@ -49,7 +49,6 @@ def create_app():
 
     register_routes(app)
     return app
-
 def login_required(view):
     @wraps(view)
     def wrapped_view(**kwargs):
@@ -237,3 +236,4 @@ def register_routes(app):
 if __name__ == "__main__":
     app = create_app()
     app.run(debug=True, port=5001, host="0.0.0.0")
+
