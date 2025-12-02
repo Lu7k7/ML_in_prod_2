@@ -2,7 +2,7 @@
 from datetime import date
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from extensions import db 
+from extensions import db
 
 
 class User(db.Model):
@@ -29,7 +29,9 @@ class Task(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=True)
-    created_at = db.Column(db.DateTime, server_default=db.func.now(), nullable=False)
+    created_at = db.Column(
+        db.DateTime, server_default=db.func.now(), nullable=False
+    )
     due_date = db.Column(db.Date, nullable=True)
     is_completed = db.Column(db.Boolean, default=False, nullable=False)
 
