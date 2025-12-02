@@ -13,9 +13,9 @@ from flask import (
     g,
 )
 from dotenv import load_dotenv
-from extensions import db 
+from extensions import db
 
-load_dotenv() 
+load_dotenv()
 
 
 def _build_postgres_uri() -> str:
@@ -35,7 +35,9 @@ def _build_postgres_uri() -> str:
 def create_app():
     app = Flask(__name__)
 
-    app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "dev-unsafe-secret")
+    app.config["SECRET_KEY"] = os.environ.get(
+        "SECRET_KEY", "dev-unsafe-secret"
+    )
     app.config["SQLALCHEMY_DATABASE_URI"] = _build_postgres_uri()
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
@@ -47,7 +49,6 @@ def create_app():
 
     register_routes(app)
     return app
-
 
 
 def login_required(view):
@@ -153,7 +154,9 @@ def register_routes(app):
             due_date = None
             if due_date_str:
                 try:
-                    due_date = datetime.strptime(due_date_str, "%Y-%m-%d").date()
+                    due_date = datetime.strptime(
+                        due_date_str, "%Y-%m-%d"
+                    ).date()
                 except ValueError:
                     flash("Invalid date format. Use YYYY-MM-DD.", "error")
                     return render_template("task_form.html", task=None)
@@ -174,7 +177,9 @@ def register_routes(app):
     @app.route("/tasks/<int:task_id>/edit", methods=["GET", "POST"])
     @login_required
     def edit_task(task_id):
-        task = Task.query.filter_by(id=task_id, user_id=g.user.id).first_or_404()
+        task = Task.query.filter_by(
+            id=task_id, user_id=g.user.id
+        ).first_or_404()
 
         if request.method == "POST":
             title = request.form.get("title", "").strip()
@@ -189,7 +194,9 @@ def register_routes(app):
             due_date = None
             if due_date_str:
                 try:
-                    due_date = datetime.strptime(due_date_str, "%Y-%m-%d").date()
+                    due_date = datetime.strptime(
+                        due_date_str, "%Y-%m-%d"
+                    ).date()
                 except ValueError:
                     flash("Invalid date format. Use YYYY-MM-DD.", "error")
                     return render_template("task_form.html", task=task)
@@ -208,7 +215,9 @@ def register_routes(app):
     @app.route("/tasks/<int:task_id>/toggle", methods=["POST"])
     @login_required
     def toggle_task(task_id):
-        task = Task.query.filter_by(id=task_id, user_id=g.user.id).first_or_404()
+        task = Task.query.filter_by(
+            id=task_id, user_id=g.user.id
+        ).first_or_404()
         task.is_completed = not task.is_completed
         db.session.commit()
         flash("Task status updated.", "success")
@@ -217,7 +226,9 @@ def register_routes(app):
     @app.route("/tasks/<int:task_id>/delete", methods=["POST"])
     @login_required
     def delete_task(task_id):
-        task = Task.query.filter_by(id=task_id, user_id=g.user.id).first_or_404()
+        task = Task.query.filter_by(
+            id=task_id, user_id=g.user.id
+        ).first_or_404()
         db.session.delete(task)
         db.session.commit()
         flash("Task deleted.", "success")
