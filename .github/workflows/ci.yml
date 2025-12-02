@@ -36,7 +36,7 @@ jobs:
 
       # 6.1.3 Build Docker image
       - name: Build Docker Image (Validation)
-        run: docker build -t taskmanager-validation .
+        run: docker build -t taskmanager-validation flask_app
 
   deploy:
     runs-on: ubuntu-latest
@@ -64,7 +64,7 @@ jobs:
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: flask_app
           push: true
           tags: |
             ${{ secrets.DOCKERHUB_USERNAME }}/task-manager-prod:latest
