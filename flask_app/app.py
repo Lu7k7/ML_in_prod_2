@@ -15,8 +15,6 @@ from flask import (
 from dotenv import load_dotenv
 from extensions import db
 
-# this is an edit to init a new commit on the dev branch
-
 load_dotenv()
 
 
